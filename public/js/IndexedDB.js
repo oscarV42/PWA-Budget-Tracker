@@ -25,6 +25,14 @@ request.onerror = (event) => {
     console.log('It broke... ', event.target.errorCode)
 }
 
+function saveRecord(record) {
+    const transaction = db.transaction(["pending"], "readwrite");
+    const store = transaction.objectStore("pending");
+  
+    store.add(record);
+  }
+  
+
 const checkDB = () => {
   const transaction = db.transaction(["pending"], ["readwrite"]);
   const store = transaction.objectStore('pending');
