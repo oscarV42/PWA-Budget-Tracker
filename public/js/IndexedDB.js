@@ -20,3 +20,7 @@ request.onsuccess = ({ target }) => {
     checkDatabase();
   }
 };
+
+request.onerror = (event) => {
+    console.log('It broke... ', event.target.errorCode)
+}
