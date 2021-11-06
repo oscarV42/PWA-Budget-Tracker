@@ -13,3 +13,10 @@ request.onupgradeneeded = ({ target }) => {
     db.createObjectStore("pending", { autoIncrement: true });
 };
 
+request.onsuccess = ({ target }) => {
+  db = target.result;
+
+  if(navigator.onLine) {
+    checkDatabase();
+  }
+};
