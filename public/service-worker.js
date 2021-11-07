@@ -4,6 +4,8 @@ const FILES_TO_CACHE = [
     '/js/index.js',
     '/manifest.json',
     '/css/styles.css',
+    // "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",
+    // "https://cdn.jsdelivr.net/npm/chart.js@2.8.0",
     "/icons/icon-192x192.png",
     "/icons/icon-512x512.png"
 ]
@@ -22,23 +24,6 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // if(event.request.url.includes('/api')) {
-  //   event.respondWith(
-  //     caches.match(event.request).then((cachedResponse) => {
-  //       if(cachedResponse) {
-  //           return cachedResponse;
-  //       }
-        
-  //       return caches.open(DATA_NAME).then((cache) => {
-  //         return fetch(event.request).then((response) => {
-  //           return cache.put(event.request, response.clone()).then(() => {
-  //               return response;
-  //           });
-  //         });
-  //       });
-  //     })
-  //   );
-  // };
   if (event.request.url.includes("/api/")) {
     event.respondWith(
       caches.open(DATA_NAME).then(cache => {
@@ -73,5 +58,4 @@ self.addEventListener('fetch', (event) => {
       });
     })
   );
-
 });
