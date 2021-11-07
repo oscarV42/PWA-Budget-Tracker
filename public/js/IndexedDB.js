@@ -29,7 +29,7 @@ function saveRecord(record) {
   
 
 const checkDB = () => {
-  const transaction = db.transaction(["pending"], ["readwrite"]);
+  const transaction = db.transaction(["pending"], "readwrite");
   const store = transaction.objectStore('pending');
   const getAll = store.getAll();
 
@@ -38,14 +38,18 @@ const checkDB = () => {
       fetch('/api/transaction/bulk', {
         method: 'POST',
         body: JSON.stringify(getAll.result),
-        headers: 'application/json'
+        headers: { Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json"
+        }
       })
       .then(response => {
           return response.json();
       })
       .then(() => {
-          // delete records if successful
-          store.clear();
+        // delete records if successful
+        const transaction = db.transaction(["pending"], "readwrite");
+        const store = transaction.objectStore('pending');
+        store.clear();
       })
     } 
   }
